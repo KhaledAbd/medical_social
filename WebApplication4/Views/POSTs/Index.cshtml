@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WebApplication4.Models.POST>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+           User
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.picture)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.created_at)
+        </th>
+        <th></th>
+    </tr>
+@foreach (var item in Model) {
+    <tr>
+        @{ 
+            var name = item.UserInfo.Fname + item.UserInfo.Lname;
+        }
+        <td>
+            @Html.DisplayFor(modelItem=>name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.text)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.picture)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.created_at)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.post_id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.post_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.post_id })
+        </td>
+    </tr>
+}
+
+</table>

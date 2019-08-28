@@ -1,0 +1,59 @@
+﻿@model WebApplication4.Models.AspNetUser
+
+@{
+    ViewBag.Title = "User Information";
+}
+
+<h2>Index</h2>
+
+<div>
+    <h4>User Profile</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserInfo.Fname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserInfo.Fname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserInfo.Lname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserInfo.Lname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserInfo.isDoctor) 
+        </dt>
+
+        <dd>
+            @if (Model.UserInfo.isDoctor == true)
+            {
+                <p>Your A Doctor</p>
+            }
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id, @class="btn-primary"})
+    <br>
+    @Html.ActionLink("Back to List", "Index" ,new { @class = "btn-success"})
+</p>
