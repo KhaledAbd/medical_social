@@ -18,34 +18,21 @@ using System;
 public partial class comment
 {
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public comment()
-    {
-
-        this.comment_like = new HashSet<comment_like>();
-
-    }
-
-
     public int comment_id { get; set; }
 
     public string text { get; set; }
 
-    public int Like_comment_num { get; set; }
+    public System.DateTime created_at { get; set; }
 
-    public int disLike_comment_num { get; set; }
+    public int post_id { get; set; }
 
-    public System.TimeSpan created_at { get; set; }
+    public string user_id { get; set; }
 
 
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<comment_like> comment_like { get; set; }
-
-    public virtual UserInfo UserInfo { get; set; }
 
     public virtual POST POST { get; set; }
+
+    public virtual UserInfo UserInfo { get; set; }
 
 }
 

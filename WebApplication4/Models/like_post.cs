@@ -24,9 +24,9 @@ public partial class like_post
 
 
 
-    public virtual UserInfo UserInfo { get; set; }
-
     public virtual POST POST { get; set; }
+
+    public virtual UserInfo UserInfo { get; set; }
 
 }
 

@@ -33,6 +33,7 @@
         <td>
             @Html.DisplayFor(modelItem=>name)
         </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.text)
         </td>
@@ -40,12 +41,14 @@
             @Html.DisplayFor(modelItem => item.picture)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.created_at)
+                <img alt="there is image" src="../image/posts/@item.picture" />          
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.post_id }) |
             @Html.ActionLink("Details", "Details", new { id = item.post_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.post_id })
+            @Html.ActionLink("Delete", "Delete", new { id = item.post_id })|
+            @Html.ActionLink("Comment", "Create", "Comment", new { post_id = item.post_id}, new { @class = "btn-success"})
+            @Html.ActionLink("Like", "Create", "Like", new {post_id = item.post_id }, new { @class = "btn-success" })
         </td>
     </tr>
 }

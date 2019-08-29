@@ -36,13 +36,11 @@ public partial class Blog_MedicalEntities2 : DbContext
 
     public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
 
-    public virtual DbSet<comment> comments { get; set; }
-
-    public virtual DbSet<comment_like> comment_like { get; set; }
+    public virtual DbSet<POST> POSTs { get; set; }
 
     public virtual DbSet<like_post> like_post { get; set; }
 
-    public virtual DbSet<POST> POSTs { get; set; }
+    public virtual DbSet<comment> comments { get; set; }
 
 }
 

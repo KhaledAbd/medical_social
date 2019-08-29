@@ -22,13 +22,11 @@ public partial class UserInfo
     public UserInfo()
     {
 
-        this.comments = new HashSet<comment>();
-
-        this.comment_like = new HashSet<comment_like>();
+        this.POSTs = new HashSet<POST>();
 
         this.like_post = new HashSet<like_post>();
 
-        this.POSTs = new HashSet<POST>();
+        this.comments = new HashSet<comment>();
 
     }
 
@@ -49,23 +47,19 @@ public partial class UserInfo
 
     public virtual AspNetUser AspNetUser { get; set; }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<comment> comments { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<comment_like> comment_like { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<like_post> like_post { get; set; }
-
     public virtual AspNetUser AspNetUser1 { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<POST> POSTs { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<like_post> like_post { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<comment> comments { get; set; }
 
 }
 

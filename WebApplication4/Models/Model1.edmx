@@ -28,26 +28,15 @@
           </Key>
           <Property Name="comment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="text" Type="nvarchar" MaxLength="400" Nullable="false" />
-          <Property Name="Like_comment_num" Type="int" Nullable="false" />
-          <Property Name="disLike_comment_num" Type="int" Nullable="false" />
-          <Property Name="created_at" Type="time" Precision="7" Nullable="false" />
+          <Property Name="created_at" Type="datetime" Nullable="false" />
           <Property Name="post_id" Type="int" Nullable="false" />
           <Property Name="user_id" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
-        <EntityType Name="comment_like">
-          <Key>
-            <PropertyRef Name="like_id" />
-          </Key>
-          <Property Name="like_id" Type="int" Nullable="false" />
-          <Property Name="user_id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="comment_id" Type="int" Nullable="false" />
-          <Property Name="likeOrDislike" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="like_post">
           <Key>
             <PropertyRef Name="like_id" />
           </Key>
-          <Property Name="like_id" Type="int" Nullable="false" />
+          <Property Name="like_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="post_id" Type="int" Nullable="false" />
           <Property Name="user_id" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="likeOrdislike" Type="bit" Nullable="false" />
@@ -74,30 +63,6 @@
           <Property Name="gender" Type="bit" Nullable="false" />
           <Property Name="user_id" Type="nvarchar" MaxLength="128" />
         </EntityType>
-        <Association Name="FK_comment_like_comment">
-          <End Role="comment" Type="Self.comment" Multiplicity="1" />
-          <End Role="comment_like" Type="Self.comment_like" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="comment">
-              <PropertyRef Name="comment_id" />
-            </Principal>
-            <Dependent Role="comment_like">
-              <PropertyRef Name="comment_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_comment_like_UserInfo">
-          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
-          <End Role="comment_like" Type="Self.comment_like" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserInfo">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="comment_like">
-              <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_comment_POST">
           <End Role="POST" Type="Self.POST" Multiplicity="1" />
           <End Role="comment" Type="Self.comment" Multiplicity="*" />
@@ -173,18 +138,9 @@
         <EntityContainer Name="Blog_MedicalModelStoreContainer">
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="comment" EntityType="Self.comment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="comment_like" EntityType="Self.comment_like" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="like_post" EntityType="Self.like_post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="POST" EntityType="Self.POST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_comment_like_comment" Association="Self.FK_comment_like_comment">
-            <End Role="comment" EntitySet="comment" />
-            <End Role="comment_like" EntitySet="comment_like" />
-          </AssociationSet>
-          <AssociationSet Name="FK_comment_like_UserInfo" Association="Self.FK_comment_like_UserInfo">
-            <End Role="UserInfo" EntitySet="UserInfo" />
-            <End Role="comment_like" EntitySet="comment_like" />
-          </AssociationSet>
           <AssociationSet Name="FK_comment_POST" Association="Self.FK_comment_POST">
             <End Role="POST" EntitySet="POST" />
             <End Role="comment" EntitySet="comment" />
@@ -225,11 +181,10 @@
           <Property Name="isDoctor" Type="Boolean" Nullable="false" />
           <Property Name="gender" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUser" Relationship="Blog_MedicalModel.FK_UserInfo_AspNetUsers" FromRole="UserInfo" ToRole="AspNetUser" />
-          <NavigationProperty Name="comments" Relationship="Blog_MedicalModel.FK_comment_UserInfo" FromRole="UserInfo" ToRole="comment" />
-          <NavigationProperty Name="comment_like" Relationship="Blog_MedicalModel.FK_comment_like_UserInfo" FromRole="UserInfo" ToRole="comment_like" />
-          <NavigationProperty Name="like_post" Relationship="Blog_MedicalModel.FK_like_post_UserInfo" FromRole="UserInfo" ToRole="like_post" />
           <NavigationProperty Name="AspNetUser1" Relationship="Blog_MedicalModel.FK_UserInfo_AspNetUsers1" FromRole="UserInfo" ToRole="AspNetUser" />
           <NavigationProperty Name="POSTs" Relationship="Blog_MedicalModel.FK_POST_UserInfo" FromRole="UserInfo" ToRole="POST" />
+          <NavigationProperty Name="like_post" Relationship="Blog_MedicalModel.FK_like_post_UserInfo" FromRole="UserInfo" ToRole="like_post" />
+          <NavigationProperty Name="comments" Relationship="Blog_MedicalModel.FK_comment_UserInfo" FromRole="UserInfo" ToRole="comment" />
         </EntityType>
         <EntityContainer Name="Blog_MedicalEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="UserInfoes" EntityType="Self.UserInfo" />
@@ -238,43 +193,34 @@
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="UserInfo" EntitySet="UserInfoes" />
           </AssociationSet>
-          <EntitySet Name="comments" EntityType="Blog_MedicalModel.comment" />
-          <EntitySet Name="comment_like" EntityType="Blog_MedicalModel.comment_like" />
-          <EntitySet Name="like_post" EntityType="Blog_MedicalModel.like_post" />
-          <AssociationSet Name="FK_comment_like_comment" Association="Blog_MedicalModel.FK_comment_like_comment">
-            <End Role="comment" EntitySet="comments" />
-            <End Role="comment_like" EntitySet="comment_like" />
-          </AssociationSet>
-          <AssociationSet Name="FK_comment_UserInfo" Association="Blog_MedicalModel.FK_comment_UserInfo">
-            <End Role="UserInfo" EntitySet="UserInfoes" />
-            <End Role="comment" EntitySet="comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_comment_like_UserInfo" Association="Blog_MedicalModel.FK_comment_like_UserInfo">
-            <End Role="UserInfo" EntitySet="UserInfoes" />
-            <End Role="comment_like" EntitySet="comment_like" />
-          </AssociationSet>
-          <AssociationSet Name="FK_like_post_UserInfo" Association="Blog_MedicalModel.FK_like_post_UserInfo">
-            <End Role="UserInfo" EntitySet="UserInfoes" />
-            <End Role="like_post" EntitySet="like_post" />
-          </AssociationSet>
           <EntitySet Name="POSTs" EntityType="Blog_MedicalModel.POST" />
           <AssociationSet Name="FK_UserInfo_AspNetUsers1" Association="Blog_MedicalModel.FK_UserInfo_AspNetUsers1">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="UserInfo" EntitySet="UserInfoes" />
           </AssociationSet>
-          <AssociationSet Name="FK_comment_POST" Association="Blog_MedicalModel.FK_comment_POST">
-            <End Role="POST" EntitySet="POSTs" />
-            <End Role="comment" EntitySet="comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_like_post_POST" Association="Blog_MedicalModel.FK_like_post_POST">
-            <End Role="POST" EntitySet="POSTs" />
-            <End Role="like_post" EntitySet="like_post" />
-          </AssociationSet>
           <AssociationSet Name="FK_POST_UserInfo" Association="Blog_MedicalModel.FK_POST_UserInfo">
             <End Role="UserInfo" EntitySet="UserInfoes" />
             <End Role="POST" EntitySet="POSTs" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="like_post" EntityType="Blog_MedicalModel.like_post" />
+          <AssociationSet Name="FK_like_post_POST" Association="Blog_MedicalModel.FK_like_post_POST">
+            <End Role="POST" EntitySet="POSTs" />
+            <End Role="like_post" EntitySet="like_post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_like_post_UserInfo" Association="Blog_MedicalModel.FK_like_post_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="like_post" EntitySet="like_post" />
+          </AssociationSet>
+          <EntitySet Name="comments" EntityType="Blog_MedicalModel.comment" />
+          <AssociationSet Name="FK_comment_POST" Association="Blog_MedicalModel.FK_comment_POST">
+            <End Role="POST" EntitySet="POSTs" />
+            <End Role="comment" EntitySet="comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_comment_UserInfo" Association="Blog_MedicalModel.FK_comment_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="comment" EntitySet="comments" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="AspNetUser">
           <Key>
             <PropertyRef Name="Id" />
@@ -306,53 +252,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="comment">
-          <Key>
-            <PropertyRef Name="comment_id" />
-          </Key>
-          <Property Name="comment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="text" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
-          <Property Name="Like_comment_num" Type="Int32" Nullable="false" />
-          <Property Name="disLike_comment_num" Type="Int32" Nullable="false" />
-          <Property Name="created_at" Type="Time" Nullable="false" Precision="7" />
-          <NavigationProperty Name="comment_like" Relationship="Blog_MedicalModel.FK_comment_like_comment" FromRole="comment" ToRole="comment_like" />
-          <NavigationProperty Name="UserInfo" Relationship="Blog_MedicalModel.FK_comment_UserInfo" FromRole="comment" ToRole="UserInfo" />
-          <NavigationProperty Name="POST" Relationship="Blog_MedicalModel.FK_comment_POST" FromRole="comment" ToRole="POST" />
-        </EntityType>
-        <EntityType Name="comment_like">
-          <Key>
-            <PropertyRef Name="like_id" />
-          </Key>
-          <Property Name="like_id" Type="Int32" Nullable="false" />
-          <Property Name="likeOrDislike" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="comment" Relationship="Blog_MedicalModel.FK_comment_like_comment" FromRole="comment_like" ToRole="comment" />
-          <NavigationProperty Name="UserInfo" Relationship="Blog_MedicalModel.FK_comment_like_UserInfo" FromRole="comment_like" ToRole="UserInfo" />
-        </EntityType>
-        <EntityType Name="like_post">
-          <Key>
-            <PropertyRef Name="like_id" />
-          </Key>
-          <Property Name="like_id" Type="Int32" Nullable="false" />
-          <Property Name="likeOrdislike" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="UserInfo" Relationship="Blog_MedicalModel.FK_like_post_UserInfo" FromRole="like_post" ToRole="UserInfo" />
-          <NavigationProperty Name="POST" Relationship="Blog_MedicalModel.FK_like_post_POST" FromRole="like_post" ToRole="POST" />
-        </EntityType>
-        <Association Name="FK_comment_like_comment">
-          <End Type="Blog_MedicalModel.comment" Role="comment" Multiplicity="1" />
-          <End Type="Blog_MedicalModel.comment_like" Role="comment_like" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_comment_UserInfo">
-          <End Type="Blog_MedicalModel.UserInfo" Role="UserInfo" Multiplicity="1" />
-          <End Type="Blog_MedicalModel.comment" Role="comment" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_comment_like_UserInfo">
-          <End Type="Blog_MedicalModel.UserInfo" Role="UserInfo" Multiplicity="1" />
-          <End Type="Blog_MedicalModel.comment_like" Role="comment_like" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_like_post_UserInfo">
-          <End Type="Blog_MedicalModel.UserInfo" Role="UserInfo" Multiplicity="1" />
-          <End Type="Blog_MedicalModel.like_post" Role="like_post" Multiplicity="*" />
-        </Association>
         <EntityType Name="POST">
           <Key>
             <PropertyRef Name="post_id" />
@@ -361,27 +260,72 @@
           <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="picture" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="created_at" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="comments" Relationship="Blog_MedicalModel.FK_comment_POST" FromRole="POST" ToRole="comment" />
-          <NavigationProperty Name="like_post" Relationship="Blog_MedicalModel.FK_like_post_POST" FromRole="POST" ToRole="like_post" />
           <NavigationProperty Name="UserInfo" Relationship="Blog_MedicalModel.FK_POST_UserInfo" FromRole="POST" ToRole="UserInfo" />
+          <NavigationProperty Name="like_post" Relationship="Blog_MedicalModel.FK_like_post_POST" FromRole="POST" ToRole="like_post" />
+          <NavigationProperty Name="comments" Relationship="Blog_MedicalModel.FK_comment_POST" FromRole="POST" ToRole="comment" />
         </EntityType>
         <Association Name="FK_UserInfo_AspNetUsers1">
           <End Type="Blog_MedicalModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
           <End Type="Blog_MedicalModel.UserInfo" Role="UserInfo" Multiplicity="*" />
         </Association>
-        <Association Name="FK_comment_POST">
-          <End Type="Blog_MedicalModel.POST" Role="POST" Multiplicity="1" />
-          <End Type="Blog_MedicalModel.comment" Role="comment" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_like_post_POST">
-          <End Type="Blog_MedicalModel.POST" Role="POST" Multiplicity="1" />
-          <End Type="Blog_MedicalModel.like_post" Role="like_post" Multiplicity="*" />
-        </Association>
         <Association Name="FK_POST_UserInfo">
           <End Type="Blog_MedicalModel.UserInfo" Role="UserInfo" Multiplicity="1" />
           <End Type="Blog_MedicalModel.POST" Role="POST" Multiplicity="*" />
         </Association>
-      </Schema>
+        <EntityType Name="like_post">
+          <Key>
+            <PropertyRef Name="like_id" />
+          </Key>
+          <Property Name="like_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="likeOrdislike" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="POST" Relationship="Blog_MedicalModel.FK_like_post_POST" FromRole="like_post" ToRole="POST" />
+          <NavigationProperty Name="UserInfo" Relationship="Blog_MedicalModel.FK_like_post_UserInfo" FromRole="like_post" ToRole="UserInfo" />
+        </EntityType>
+        <Association Name="FK_like_post_POST">
+          <End Type="Blog_MedicalModel.POST" Role="POST" Multiplicity="1" />
+          <End Type="Blog_MedicalModel.like_post" Role="like_post" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_like_post_UserInfo">
+          <End Type="Blog_MedicalModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="Blog_MedicalModel.like_post" Role="like_post" Multiplicity="*" />
+        </Association>
+        <EntityType Name="comment">
+          <Key>
+            <PropertyRef Name="comment_id" />
+          </Key>
+          <Property Name="comment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="text" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="post_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="POST" Relationship="Blog_MedicalModel.FK_comment_POST" FromRole="comment" ToRole="POST" />
+          <NavigationProperty Name="UserInfo" Relationship="Blog_MedicalModel.FK_comment_UserInfo" FromRole="comment" ToRole="UserInfo" />
+        </EntityType>
+        <Association Name="FK_comment_POST">
+          <End Type="Blog_MedicalModel.POST" Role="POST" Multiplicity="1" />
+          <End Type="Blog_MedicalModel.comment" Role="comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POST">
+              <PropertyRef Name="post_id" />
+            </Principal>
+            <Dependent Role="comment">
+              <PropertyRef Name="post_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_comment_UserInfo">
+          <End Type="Blog_MedicalModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="Blog_MedicalModel.comment" Role="comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="comment">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -417,65 +361,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="comments">
-            <EntityTypeMapping TypeName="Blog_MedicalModel.comment">
-              <MappingFragment StoreEntitySet="comment">
-                <ScalarProperty Name="created_at" ColumnName="created_at" />
-                <ScalarProperty Name="disLike_comment_num" ColumnName="disLike_comment_num" />
-                <ScalarProperty Name="Like_comment_num" ColumnName="Like_comment_num" />
-                <ScalarProperty Name="text" ColumnName="text" />
-                <ScalarProperty Name="comment_id" ColumnName="comment_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="comment_like">
-            <EntityTypeMapping TypeName="Blog_MedicalModel.comment_like">
-              <MappingFragment StoreEntitySet="comment_like">
-                <ScalarProperty Name="likeOrDislike" ColumnName="likeOrDislike" />
-                <ScalarProperty Name="like_id" ColumnName="like_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="like_post">
-            <EntityTypeMapping TypeName="Blog_MedicalModel.like_post">
-              <MappingFragment StoreEntitySet="like_post">
-                <ScalarProperty Name="likeOrdislike" ColumnName="likeOrdislike" />
-                <ScalarProperty Name="like_id" ColumnName="like_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="FK_comment_like_comment" TypeName="Blog_MedicalModel.FK_comment_like_comment" StoreEntitySet="comment_like">
-            <EndProperty Name="comment_like">
-              <ScalarProperty Name="like_id" ColumnName="like_id" />
-            </EndProperty>
-            <EndProperty Name="comment">
-              <ScalarProperty Name="comment_id" ColumnName="comment_id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_comment_UserInfo" TypeName="Blog_MedicalModel.FK_comment_UserInfo" StoreEntitySet="comment">
-            <EndProperty Name="comment">
-              <ScalarProperty Name="comment_id" ColumnName="comment_id" />
-            </EndProperty>
-            <EndProperty Name="UserInfo">
-              <ScalarProperty Name="ID" ColumnName="user_id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_comment_like_UserInfo" TypeName="Blog_MedicalModel.FK_comment_like_UserInfo" StoreEntitySet="comment_like">
-            <EndProperty Name="comment_like">
-              <ScalarProperty Name="like_id" ColumnName="like_id" />
-            </EndProperty>
-            <EndProperty Name="UserInfo">
-              <ScalarProperty Name="ID" ColumnName="user_id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_like_post_UserInfo" TypeName="Blog_MedicalModel.FK_like_post_UserInfo" StoreEntitySet="like_post">
-            <EndProperty Name="like_post">
-              <ScalarProperty Name="like_id" ColumnName="like_id" />
-            </EndProperty>
-            <EndProperty Name="UserInfo">
-              <ScalarProperty Name="ID" ColumnName="user_id" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="POSTs">
             <EntityTypeMapping TypeName="Blog_MedicalModel.POST">
               <MappingFragment StoreEntitySet="POST">
@@ -495,22 +380,6 @@
             </EndProperty>
             <Condition ColumnName="user_id" IsNull="false" />
           </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_comment_POST" TypeName="Blog_MedicalModel.FK_comment_POST" StoreEntitySet="comment">
-            <EndProperty Name="comment">
-              <ScalarProperty Name="comment_id" ColumnName="comment_id" />
-            </EndProperty>
-            <EndProperty Name="POST">
-              <ScalarProperty Name="post_id" ColumnName="post_id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_like_post_POST" TypeName="Blog_MedicalModel.FK_like_post_POST" StoreEntitySet="like_post">
-            <EndProperty Name="like_post">
-              <ScalarProperty Name="like_id" ColumnName="like_id" />
-            </EndProperty>
-            <EndProperty Name="POST">
-              <ScalarProperty Name="post_id" ColumnName="post_id" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="FK_POST_UserInfo" TypeName="Blog_MedicalModel.FK_POST_UserInfo" StoreEntitySet="POST">
             <EndProperty Name="POST">
               <ScalarProperty Name="post_id" ColumnName="post_id" />
@@ -519,6 +388,41 @@
               <ScalarProperty Name="ID" ColumnName="user_id" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="like_post">
+            <EntityTypeMapping TypeName="Blog_MedicalModel.like_post">
+              <MappingFragment StoreEntitySet="like_post">
+                <ScalarProperty Name="likeOrdislike" ColumnName="likeOrdislike" />
+                <ScalarProperty Name="like_id" ColumnName="like_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_like_post_POST" TypeName="Blog_MedicalModel.FK_like_post_POST" StoreEntitySet="like_post">
+            <EndProperty Name="like_post">
+              <ScalarProperty Name="like_id" ColumnName="like_id" />
+            </EndProperty>
+            <EndProperty Name="POST">
+              <ScalarProperty Name="post_id" ColumnName="post_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_like_post_UserInfo" TypeName="Blog_MedicalModel.FK_like_post_UserInfo" StoreEntitySet="like_post">
+            <EndProperty Name="like_post">
+              <ScalarProperty Name="like_id" ColumnName="like_id" />
+            </EndProperty>
+            <EndProperty Name="UserInfo">
+              <ScalarProperty Name="ID" ColumnName="user_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="comments">
+            <EntityTypeMapping TypeName="Blog_MedicalModel.comment">
+              <MappingFragment StoreEntitySet="comment">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="post_id" ColumnName="post_id" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="comment_id" ColumnName="comment_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -534,7 +438,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

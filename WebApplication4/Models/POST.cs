@@ -22,9 +22,9 @@ public partial class POST
     public POST()
     {
 
-        this.comments = new HashSet<comment>();
-
         this.like_post = new HashSet<like_post>();
+
+        this.comments = new HashSet<comment>();
 
     }
 
@@ -39,15 +39,15 @@ public partial class POST
 
 
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<comment> comments { get; set; }
+    public virtual UserInfo UserInfo { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<like_post> like_post { get; set; }
 
-    public virtual UserInfo UserInfo { get; set; }
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<comment> comments { get; set; }
 
 }
 

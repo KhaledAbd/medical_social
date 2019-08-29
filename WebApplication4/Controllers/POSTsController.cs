@@ -55,7 +55,7 @@ namespace WebApplication4.Controllers
                 string pic = System.IO.Path.GetFileName(file.FileName);
                 string name = pic.Substring(0, pic.IndexOf('.'));
                 string ext = pic.Substring(pic.IndexOf('.'));
-                double result = DateTime.Now.Subtract(DateTime.MinValue).TotalSeconds;
+                int result = (int)DateTime.Now.Subtract(DateTime.MinValue).TotalSeconds;
                 pic = name + result.ToString() + ext; 
                 
                 string path = System.IO.Path.Combine(Server.MapPath("~/App_Data/image/posts"), pic);
