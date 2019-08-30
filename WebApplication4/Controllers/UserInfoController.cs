@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -26,10 +27,33 @@ namespace WebApplication4.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UserInfo userinfo)
+        public ActionResult Create(UserInfo userinfo, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                if (file != null)
+                {
+                    string pic = System.IO.Path.GetFileName(file.FileName);
+                    string name = pic.Substring(0, pic.IndexOf('.'));
+                    string ext = pic.Substring(pic.IndexOf('.'));
+                    int result = (int)DateTime.Now.Subtract(DateTime.MinValue).TotalSeconds;
+                    pic = name + result.ToString() + ext;
+
+                    string path = System.IO.Path.Combine(Server.MapPath("~/image/profile/"), pic);
+
+                    file.SaveAs(path);
+                    userinfo.photo = pic;
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        file.InputStream.CopyTo(ms);
+                        byte[] array = ms.GetBuffer();
+                    }
+
+                }
+                else
+                {
+                    userinfo.photo = "profile.jpg";
+                }
                 userinfo.ID = db.AspNetUsers.Single(a => a.UserName == User.Identity.Name).Id;
                 db.UserInfoes.Add(userinfo);
                 db.SaveChanges();
@@ -48,11 +72,35 @@ namespace WebApplication4.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Edit(UserInfo usernew)
+        public ActionResult Edit(UserInfo usernew, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
                 UserInfo userold = db.UserInfoes.Single(m => m.ID == usernew.ID);
+
+                if (file != null)
+                {
+                    string pic = System.IO.Path.GetFileName(file.FileName);
+                    string name = pic.Substring(0, pic.IndexOf('.'));
+                    string ext = pic.Substring(pic.IndexOf('.'));
+                    int result = (int)DateTime.Now.Subtract(DateTime.MinValue).TotalSeconds;
+                    pic = name + result.ToString() + ext;
+
+                    string path = System.IO.Path.Combine(Server.MapPath("~/image/profile/"), pic);
+
+                    file.SaveAs(path);
+                    userold.photo = pic;
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        file.InputStream.CopyTo(ms);
+                        byte[] array = ms.GetBuffer();
+                    }
+
+                }
+                else
+                {
+                    userold.photo = "profile.jpg";
+                }
                 userold.Fname = usernew.Fname;
                 userold.Lname = usernew.Lname;
                 userold.gender = usernew.gender;

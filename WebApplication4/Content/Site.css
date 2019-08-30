@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #eeefff;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +22,41 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+
+.logo{
+    padding-top: 10px;
+    height : 50px;
+    width : 100px;
+    border-radius: 50%;
+    position : absolute;
+    left : 30px;
+    top : 0;
+
+}
+
+.image_pade{
+    margin-top: 30px;
+    float: left;
+
+}
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
 }

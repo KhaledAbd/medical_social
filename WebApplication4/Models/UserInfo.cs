@@ -43,6 +43,10 @@ public partial class UserInfo
 
     public bool gender { get; set; }
 
+    public string photo { get; set; }
+
+    public Nullable<System.DateTime> BDate { get; set; }
+
 
 
     public virtual AspNetUser AspNetUser { get; set; }

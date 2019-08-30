@@ -221,6 +221,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="image\profile\profile.jpg" />
+    <Content Include="image\site\doctor-2722943_960_720.jpg" />
+    <Content Include="image\site\medical.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -330,11 +333,11 @@
     <Content Include="Views\POSTs\Index.cshtml" />
     <Content Include="Views\Comment\Create.cshtml" />
     <Content Include="Views\Comment\Index.cshtml" />
+    <Content Include="Views\Shared\navbar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="image\posts\" />
-    <Folder Include="image\profile\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

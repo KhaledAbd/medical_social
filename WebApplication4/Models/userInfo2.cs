@@ -29,5 +29,9 @@ namespace WebApplication4.Models
         public bool isDoctor { get; set; }
         [Display(Name = "Sex")]
         public bool gender { get; set; }
+
+        public String photo { get; set; }
+        public Nullable<System.DateTime> BDate { get; set; }
+
     }
 }

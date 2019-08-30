@@ -58,7 +58,7 @@ namespace WebApplication4.Controllers
                 int result = (int)DateTime.Now.Subtract(DateTime.MinValue).TotalSeconds;
                 pic = name + result.ToString() + ext; 
                 
-                string path = System.IO.Path.Combine(Server.MapPath("~/App_Data/image/posts"), pic);
+                string path = System.IO.Path.Combine(Server.MapPath("~/image/posts"), pic);
 
                 file.SaveAs(path);
                 pOST.picture = pic;
