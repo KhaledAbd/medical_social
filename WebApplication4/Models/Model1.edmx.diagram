@@ -5,16 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="088551dfacf24d909ae020ea3f961699" Name="Diagram1" ZoomLevel="75">
-        <EntityTypeShape EntityType="Blog_MedicalModel.UserInfo" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blog_MedicalModel.AspNetUser" Width="1.5" PointX="4.75" PointY="2.875" IsExpanded="true" />
-        <AssociationConnector Association="Blog_MedicalModel.FK_UserInfo_AspNetUsers" />
         <EntityTypeShape EntityType="Blog_MedicalModel.POST" Width="1.5" PointX="0.875" PointY="5.125" />
-        <AssociationConnector Association="Blog_MedicalModel.FK_UserInfo_AspNetUsers1" />
-        <AssociationConnector Association="Blog_MedicalModel.FK_POST_UserInfo" />
         <EntityTypeShape EntityType="Blog_MedicalModel.like_post" Width="1.5" PointX="3.125" PointY="0.75" />
         <AssociationConnector Association="Blog_MedicalModel.FK_like_post_POST" />
+        <EntityTypeShape EntityType="Blog_MedicalModel.AspNetUser" Width="1.5" PointX="8.75" PointY="2.875" />
+        <EntityTypeShape EntityType="Blog_MedicalModel.UserInfo" Width="1.5" PointX="5.25" PointY="0.625" />
+        <AssociationConnector Association="Blog_MedicalModel.FK_UserInfo_AspNetUsers" />
         <AssociationConnector Association="Blog_MedicalModel.FK_like_post_UserInfo" />
-        <EntityTypeShape EntityType="Blog_MedicalModel.comment" Width="1.5" PointX="7.125" PointY="3" />
+        <AssociationConnector Association="Blog_MedicalModel.FK_POST_UserInfo" />
+        <EntityTypeShape EntityType="Blog_MedicalModel.comment" Width="1.5" PointX="3.125" PointY="4.125" />
         <AssociationConnector Association="Blog_MedicalModel.FK_comment_POST" />
         <AssociationConnector Association="Blog_MedicalModel.FK_comment_UserInfo" />
         </Diagram>

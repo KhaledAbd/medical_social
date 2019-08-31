@@ -135,9 +135,11 @@ namespace WebApplication4.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            POST pOST = db.POSTs.Find(id);
-            db.POSTs.Remove(pOST);
+            db.like_post.RemoveRange(db.POSTs.First(p => p.post_id == id).like_post.ToList());
+            db.comments.RemoveRange(db.POSTs.First(p => p.post_id == id).comments.ToList());
+            db.POSTs.Remove(db.POSTs.Find(id));
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
         [HttpPost]

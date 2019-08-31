@@ -18,15 +18,6 @@ using System;
 public partial class AspNetUser
 {
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public AspNetUser()
-    {
-
-        this.UserInfoes = new HashSet<UserInfo>();
-
-    }
-
-
     public string Id { get; set; }
 
     public string Email { get; set; }
@@ -54,10 +45,6 @@ public partial class AspNetUser
 
 
     public virtual UserInfo UserInfo { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<UserInfo> UserInfoes { get; set; }
 
 }
 
