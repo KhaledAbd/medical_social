@@ -223,8 +223,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="image\profile\profile.jpg" />
     <Content Include="image\site\doctor-2722943_960_720.jpg" />
+    <Content Include="image\site\doctors.jpg" />
+    <Content Include="image\site\hands-holding-heart_23-2148172201.jpg" />
     <Content Include="image\site\Indian-Clinical-Research-Requires-An-Uplift.jpg" />
-    <Content Include="image\site\medical.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
