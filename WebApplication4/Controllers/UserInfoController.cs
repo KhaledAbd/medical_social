@@ -113,5 +113,15 @@ namespace WebApplication4.Controllers
                 return View();
             }
         }
+
+        public ActionResult Profile()
+        {
+            return View(db.AspNetUsers.SingleOrDefault(m => m.UserName == User.Identity.Name));
+        }
+
+        public ActionResult Doctors()
+        {
+            return View("Doctors",db.UserInfoes.Where(n => n.isDoctor == true).ToList());
+        }
     }
 }

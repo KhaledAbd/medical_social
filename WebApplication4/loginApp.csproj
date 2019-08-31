@@ -223,6 +223,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="image\profile\profile.jpg" />
     <Content Include="image\site\doctor-2722943_960_720.jpg" />
+    <Content Include="image\site\Indian-Clinical-Research-Requires-An-Uplift.jpg" />
     <Content Include="image\site\medical.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -330,10 +331,10 @@
     <Content Include="Views\POSTs\Delete.cshtml" />
     <Content Include="Views\POSTs\Details.cshtml" />
     <Content Include="Views\POSTs\Edit.cshtml" />
-    <Content Include="Views\POSTs\Index.cshtml" />
-    <Content Include="Views\Comment\Create.cshtml" />
-    <Content Include="Views\Comment\Index.cshtml" />
     <Content Include="Views\Shared\navbar.cshtml" />
+    <Content Include="Views\UserInfo\profile.cshtml" />
+    <Content Include="Views\POSTs\Index.cshtml" />
+    <Content Include="Views\UserInfo\Doctors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<WebApplication4.Models.UserInfo>
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        { 
+            <div class="col-lg-3">
+                <div class="card hovercard">
+                    <div class="cardheader">
+                    </div>
+                    <div class="avatar">
+                        <img alt="" src="~/image/profile/@item.photo">
+                    </div>
+                    <div class="info">
+                        <div class="title">
+                            <a target="_blank" href="/userinfo/index">@item.Fname @item.Lname</a>
+                        </div>
+                        <div class="desc">@item.BDate</div>
+                        <div class="desc">@item.Description</div>
+                    </div>
+                    <div class="bottom">
+
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+

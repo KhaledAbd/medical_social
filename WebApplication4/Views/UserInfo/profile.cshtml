@@ -1,0 +1,29 @@
+﻿@model WebApplication4.Models.AspNetUser
+
+@{
+    ViewBag.Title = "profile";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-sm-6">
+            <div class="card hovercard">
+                <div class="cardheader">
+                </div>
+                <div class="avatar">
+                    <img alt="" src="~/image/profile/@Model.UserInfo.photo">
+                </div>
+                <div class="info">
+                    <div class="title">
+                        <a target="_blank" href="/userinfo/index">@Model.UserInfo.Fname @Model.UserInfo.Lname</a>
+                    </div>
+                    <div class="desc">@Model.UserInfo.BDate</div>
+                    <div class="desc">@Model.UserInfo.Description</div>
+                </div>
+                <div class="bottom">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -43,6 +43,8 @@ namespace WebApplication4.Controllers
             return View();
         }
 
+       
+
         // POST: POSTs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -137,6 +139,20 @@ namespace WebApplication4.Controllers
             db.POSTs.Remove(pOST);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public ActionResult Createcomment(string cm, int post_id)
+        {
+
+            db.comments.Add(new comment()
+            {
+                text = cm,
+                created_at = DateTime.Now,
+                post_id = post_id,
+                user_id = db.AspNetUsers.SingleOrDefault(m => m.UserName == User.Identity.Name).Id
+            });
+            db.SaveChanges();
+            return RedirectToAction("index");
         }
 
         protected override void Dispose(bool disposing)

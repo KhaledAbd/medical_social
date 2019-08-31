@@ -11,18 +11,19 @@ namespace WebApplication4.Controllers
         private Blog_MedicalEntities2 db = new Blog_MedicalEntities2();
 
         [HttpGet]
-        public ActionResult  Create(int post_id)
+        public ActionResult Create(int post_id)
         {
 
             like_post like = new like_post()
             {
                 likeOrdislike = true,
                 UserInfo = db.AspNetUsers.Single(u => u.UserName == User.Identity.Name).UserInfo
-                    };
-                    db.POSTs.Single(n => n.post_id == post_id).like_post.Add(like);
-                    db.SaveChanges();
+            };
+            db.POSTs.Single(n => n.post_id == post_id).like_post.Add(like);
+            db.SaveChanges();
+        
             return RedirectToAction("index", "Posts");
-        }
+    }
         
     }
 }
