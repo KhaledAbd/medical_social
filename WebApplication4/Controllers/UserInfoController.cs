@@ -113,12 +113,16 @@ namespace WebApplication4.Controllers
                 return View();
             }
         }
-
-        public ActionResult Profile()
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Profile(string email)
         {
+            if(email != null)
+            {
+                return View(db.AspNetUsers.SingleOrDefault(m => m.UserName == email));
+            }
             return View(db.AspNetUsers.SingleOrDefault(m => m.UserName == User.Identity.Name));
-        }
-
+        }        
         public ActionResult Doctors()
         {
             return View("Doctors",db.UserInfoes.Where(n => n.isDoctor == true).ToList());

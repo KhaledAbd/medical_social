@@ -15,7 +15,9 @@ namespace WebApplication4.Models
         {
             return View(db.comments.ToList());
         }
+        /*
         [HttpGet]
+        
         public ActionResult Create(int post_id)
         {
             comment cm = new comment();
@@ -30,6 +32,10 @@ namespace WebApplication4.Models
             db.comments.Add(Comment);
             db.SaveChanges();
             return RedirectToAction("index");
+        }*/
+        public ActionResult Show(int post_id)
+        {
+            return View(db.comments.Where(c => c.post_id == post_id).ToList());
         }
     }
 }

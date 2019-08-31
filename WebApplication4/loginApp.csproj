@@ -335,6 +335,7 @@
     <Content Include="Views\UserInfo\profile.cshtml" />
     <Content Include="Views\POSTs\Index.cshtml" />
     <Content Include="Views\UserInfo\Doctors.cshtml" />
+    <Content Include="Views\Comment\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
